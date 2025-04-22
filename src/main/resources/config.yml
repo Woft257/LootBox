@@ -1,0 +1,19 @@
+database:
+  url:      jdbc:mysql://HOST:3306/minepath  # or your SQL Server/Postgres URL
+  user:     root
+  password: Qwerty@061205
+prices:
+  common: 100
+  rare:   500
+
+rewards:
+  common:
+    items:
+      - dirt
+      - cobblestone
+      - oak_planks
+  rare:
+    items:
+      - diamond
+      - gold_ingot
+      - iron_ingot
