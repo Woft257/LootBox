@@ -39,9 +39,5 @@ buildNumber.properties
 hs_err_pid*
 replay_pid*
 
-# Old Gradle structure (if you want to keep it for reference)
-# lib/build/
-# build/
-
-# Exception for specific files you want to keep
-# !lib/build/libs/LootBoxPlugin.jar
+#NFT-Plugin
+NFT-Plguin/
