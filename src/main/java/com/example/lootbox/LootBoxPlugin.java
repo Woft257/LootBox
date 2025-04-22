@@ -33,6 +33,8 @@ public class LootBoxPlugin extends JavaPlugin implements Listener {
             this.weight = weight;
         }
     }
+    private NFTLootBoxUtil nftLootBoxUtil;
+
     @Override
     public void onEnable() {
         // Vault setup
@@ -47,14 +49,18 @@ public class LootBoxPlugin extends JavaPlugin implements Listener {
         openDatabase();
         loadRewardsFromConfig();
 
+        // Initialize NFT lootbox utility
+        nftLootBoxUtil = new NFTLootBoxUtil(this);
+
         // Register command & listener
-        getCommand("lootbox").setExecutor(new LootBoxCommand(this));
-        getServer().getPluginManager().registerEvents(new LootBoxListener(this), this);
-        getServer().getPluginManager().registerEvents(new ResourcePackListener(this), this);
+        getCommand("nftlootbox").setExecutor(new NFTLootBoxCommand(this, nftLootBoxUtil));
+        getServer().getPluginManager().registerEvents(new NFTLootBoxListener(this, nftLootBoxUtil), this);
+
+        getLogger().info("NFT Lootbox System enabled!");
     }
 
     private boolean setupEconomy() {
-        RegisteredServiceProvider<Economy> rsp = 
+        RegisteredServiceProvider<Economy> rsp =
             getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;
         econ = rsp.getProvider();
@@ -68,7 +74,7 @@ public class LootBoxPlugin extends JavaPlugin implements Listener {
     public NamespacedKey getKey(String key) {
         return new NamespacedKey(this, key);
     }
-    
+
 
 
     /** Load your reward lists from config.yml under "rewards". */
